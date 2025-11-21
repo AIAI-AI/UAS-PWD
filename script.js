@@ -32,3 +32,50 @@
             el.style.transition = 'opacity 0.5s, transform 0.5s';
             observer.observe(el);
         });
+
+        // Ambil semua nav links
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        // Fungsi untuk mengupdate active state
+        function updateActiveLink() {
+            let currentSection = '';
+            
+            // Cek section mana yang sedang terlihat
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= (sectionTop - 100)) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            // Update class active pada nav link
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Jalankan saat scroll
+        window.addEventListener('scroll', updateActiveLink);
+
+        // Jalankan saat halaman dimuat
+        window.addEventListener('load', updateActiveLink);
+
+        // Smooth scroll ketika link diklik
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
