@@ -32,3 +32,15 @@
             el.style.transition = 'opacity 0.5s, transform 0.5s';
             observer.observe(el);
         });
+
+        // Menambahkan class active pada link navigasi yang diklik
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+
+            // Hapus active dari semua link
+            links.forEach(item => item.classList.remove('active'));
+
+            // Tambahkan active ke link yang diklik
+            this.classList.add('active'); 
+            });
+        });
