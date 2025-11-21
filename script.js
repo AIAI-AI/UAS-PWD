@@ -40,11 +40,13 @@
         // Fungsi untuk mengupdate active state
         function updateActiveLink() {
             let currentSection = '';
+            const scrollPosition = window.scrollY + 150;
             
             // Cek section mana yang sedang terlihat
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
+                const sectionBottom = sectionTop + sectionHeight;
                 
                 if (window.scrollY >= (sectionTop - 100)) {
                     currentSection = section.getAttribute('id');
